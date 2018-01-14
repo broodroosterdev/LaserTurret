@@ -1,0 +1,14 @@
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\bin\Debug\LaserTurret.exe.config
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\bin\Debug\LaserTurret.exe
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\bin\Debug\LaserTurret.pdb
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\obj\Debug\LaserTurret.csprojResolveAssemblyReference.cache
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\obj\Debug\LaserTurret.LaserBoi.resources
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\obj\Debug\LaserTurret.Properties.Resources.resources
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\obj\Debug\LaserTurret.csproj.GenerateResource.Cache
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\obj\Debug\LaserTurret.csproj.CoreCompileInputs.cache
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\obj\Debug\LaserTurret.exe
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\obj\Debug\LaserTurret.pdb
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\bin\Debug\LaserTurret.exe.manifest
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\bin\Debug\LaserTurret.application
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\obj\Debug\LaserTurret.exe.manifest
+D:\VISUAL STUDIO\LaserTurret\LaserTurret\obj\Debug\LaserTurret.application
