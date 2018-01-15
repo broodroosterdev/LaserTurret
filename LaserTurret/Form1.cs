@@ -80,15 +80,18 @@ namespace LaserTurret
             if (port.IsOpen)
             {
                 int CoordinateAmount = 0;
+                LaserProgress.Step = 100 / CoordinateList.Length;
                 foreach(String Coordinates in CoordinateList)
                 {
                     String X = Coordinates.ToString().Remove(Coordinates.IndexOf(","));
                     String Y = Coordinates.ToString().Remove(0, Coordinates.IndexOf(",") + 1);
                     LaserWrite(Int32.Parse(X), Int32.Parse(Y));
                     CoordinateAmount++;
+                    LaserProgress.PerformStep();
                     if(CoordinateAmount == CoordinateList.Length && Succes != "null")
                     {
                         MessageBox.Show(Succes);
+                        LaserProgress.Value = 0;
                     }
                     await Task.Delay(Timeout);
                 }
@@ -124,7 +127,10 @@ namespace LaserTurret
             }
         }
 
-        
+        private void label2_Click(object sender, EventArgs e)
+        {
+            //
+        }
     }
 }
 
