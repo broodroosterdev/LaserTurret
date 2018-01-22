@@ -15,15 +15,24 @@ namespace LaserTurret
     public partial class LaserBoi : Form
     {
         public Stopwatch watch { get; set; }
+        public Point current = new Point();
+        public Point old = new Point();
+        public Pen p = new Pen(Color.Black, 5);
+        public Graphics g;
+        List<String> drawingarray = new List<String>();
 
         public LaserBoi()
         {
             InitializeComponent();
+            g = drawpanel.CreateGraphics();
+            p.SetLineCap(System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.LineCap.Round, System.Drawing.Drawing2D.DashCap.Round);
+            
         }
 
         private void LaserBoi_Load(object sender, EventArgs e)
         {
             IndexPorts();
+            watch = Stopwatch.StartNew();
         }
 
         private void ResetPosition_click(object sender, EventArgs e)
@@ -34,8 +43,19 @@ namespace LaserTurret
         private void MakeSquare_click(object sender, EventArgs e)
         {
             string[] CoordinatesListSquare = new string[] { "80,90", "90,80", "80,80", "90,90" };
+
             WriteArrayAsync(CoordinatesListSquare, "Made a square for you!");
 
+        }
+        private void makedraw_Click(object sender, EventArgs e)
+        {
+            WriteArrayAsync(drawingarray.ToArray(), "Made the drawing for you!");
+        }
+
+        private void cleardraw_Click(object sender, EventArgs e)
+        {
+            g.Clear(Color.White);
+            drawingarray.Clear();
         }
 
         private void COMPortBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -77,7 +97,7 @@ namespace LaserTurret
         public async void WriteArrayAsync (string[] CoordinateList,String Succes = "null", int Timeout = 500)
         {
             
-            if (port.IsOpen)
+            if (port.IsOpen && CoordinateList.Length > 0)
             {
                 int CoordinateAmount = 0;
                 LaserProgress.Step = 100 / CoordinateList.Length;
@@ -97,7 +117,7 @@ namespace LaserTurret
                 }
                 
             }
-            else
+            else if(CoordinateList.Length > 0)
             {
                 LaserWrite(0, 0);
             }
@@ -131,6 +151,39 @@ namespace LaserTurret
         {
             //
         }
+
+        private void drawpanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                current = e.Location;
+                g.DrawLine(p, old, current);
+                Addtoarray(e);
+                old = current;
+            }
+        }
+
+        private void drawpanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            old = e.Location;
+        }
+        public void Addtoarray(MouseEventArgs e)
+        {
+
+            if (watch.ElapsedMilliseconds > 100)
+            {
+                watch = Stopwatch.StartNew();
+                int X = e.Location.X / (drawpanel.Size.Width / 180);
+                int Y = e.Location.Y / (drawpanel.Size.Height / 180);
+                
+                drawingarray.Add(String.Format("{0},{1}",
+                (X),
+                (Y)));
+            }
+
+        }
+
+        
     }
 }
 
