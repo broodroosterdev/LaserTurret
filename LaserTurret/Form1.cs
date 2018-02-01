@@ -17,6 +17,8 @@ namespace LaserTurret
         public Stopwatch watch { get; set; }
         public Point current = new Point();
         public Point old = new Point();
+        public Point current_drawing = new Point();
+        public Point old_drawing = new Point();
         public Pen p = new Pen(Color.Black, 5);
         public Graphics g;
         List<String> drawingarray = new List<String>();
@@ -32,7 +34,6 @@ namespace LaserTurret
         private void LaserBoi_Load(object sender, EventArgs e)
         {
             IndexPorts();
-            watch = Stopwatch.StartNew();
         }
 
         private void ResetPosition_click(object sender, EventArgs e)
@@ -49,7 +50,7 @@ namespace LaserTurret
         }
         private void makedraw_Click(object sender, EventArgs e)
         {
-            WriteArrayAsync(drawingarray.ToArray(), "Made the drawing for you!");
+            WriteArrayAsync(drawingarray.ToArray(), "Made the drawing for you!", 250);
         }
 
         private void cleardraw_Click(object sender, EventArgs e)
@@ -82,6 +83,9 @@ namespace LaserTurret
                 port.Write(String.Format("X{0}Y{1}",
                 (X),
                 (Y)));
+                label1.Text = String.Format("X{0}Y{1}",
+                (X),
+                (Y));
                 if (Succes != "null")
                 {
                     MessageBox.Show(Succes);
@@ -101,7 +105,8 @@ namespace LaserTurret
             {
                 int CoordinateAmount = 0;
                 LaserProgress.Step = 100 / CoordinateList.Length;
-                foreach(String Coordinates in CoordinateList)
+                LaserProgress.PerformStep();
+                foreach (String Coordinates in CoordinateList)
                 {
                     String X = Coordinates.ToString().Remove(Coordinates.IndexOf(","));
                     String Y = Coordinates.ToString().Remove(0, Coordinates.IndexOf(",") + 1);
@@ -113,6 +118,7 @@ namespace LaserTurret
                         MessageBox.Show(Succes);
                         LaserProgress.Value = 0;
                     }
+                    
                     await Task.Delay(Timeout);
                 }
                 
@@ -158,32 +164,55 @@ namespace LaserTurret
             {
                 current = e.Location;
                 g.DrawLine(p, old, current);
-                Addtoarray(e);
+                CheckPosition(e);
                 old = current;
+
             }
         }
 
         private void drawpanel_MouseDown(object sender, MouseEventArgs e)
         {
             old = e.Location;
+            old_drawing = e.Location;
+            Addtoarray(e);
         }
+        public void CheckPosition(MouseEventArgs e)
+
+        {
+            current_drawing = e.Location;
+            int offset = 40;
+            if (old_drawing.X - current_drawing.X > offset || old_drawing.Y - current_drawing.Y > offset || old_drawing.Y - current_drawing.Y < -offset || old_drawing.X - current_drawing.X < -offset)
+            {
+                old_drawing = current_drawing;
+                Addtoarray(e);
+
+            }
+            else return;
+
+        }
+
         public void Addtoarray(MouseEventArgs e)
         {
-
-            if (watch.ElapsedMilliseconds > 100)
-            {
-                watch = Stopwatch.StartNew();
-                int X = e.Location.X / (drawpanel.Size.Width / 180);
-                int Y = e.Location.Y / (drawpanel.Size.Height / 180);
+    
+                int X = e.Location.X / (drawpanel.Size.Width / 40);
+                int Y = e.Location.Y / (drawpanel.Size.Height / 40);
                 
                 drawingarray.Add(String.Format("{0},{1}",
-                (X),
-                (Y)));
-            }
+                (X + 70),
+                (Y + 70)));
+            
 
         }
 
-        
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

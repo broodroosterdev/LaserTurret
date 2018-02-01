@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LaserTurret.exe" size="122856">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LaserTurret.exe" size="123880">
       <assemblyIdentity name="LaserTurret" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>MrzuLiAg+/E1jq+2IlYBlIWCXrZapytUIK/TEVBcPJ8=</dsig:DigestValue>
+        <dsig:DigestValue>4jCdBo7RKB0UKZRFWmYNQr1uti9lYbvjdGLr5jIszso=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
