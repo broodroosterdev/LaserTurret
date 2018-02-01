@@ -85,7 +85,7 @@
             // LaserProgress
             // 
             this.LaserProgress.Location = new System.Drawing.Point(12, 357);
-            this.LaserProgress.MarqueeAnimationSpeed = 25;
+            this.LaserProgress.MarqueeAnimationSpeed = 15;
             this.LaserProgress.Name = "LaserProgress";
             this.LaserProgress.Size = new System.Drawing.Size(409, 23);
             this.LaserProgress.TabIndex = 4;
@@ -104,6 +104,7 @@
             // drawpanel
             // 
             this.drawpanel.BackColor = System.Drawing.Color.White;
+            this.drawpanel.Cursor = System.Windows.Forms.Cursors.Cross;
             this.drawpanel.Location = new System.Drawing.Point(13, 13);
             this.drawpanel.Name = "drawpanel";
             this.drawpanel.Size = new System.Drawing.Size(411, 325);

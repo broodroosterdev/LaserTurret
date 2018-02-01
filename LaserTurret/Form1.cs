@@ -43,7 +43,7 @@ namespace LaserTurret
 
         private void MakeSquare_click(object sender, EventArgs e)
         {
-            string[] CoordinatesListSquare = new string[] { "80,90", "90,80", "80,80", "90,90" };
+            string[] CoordinatesListSquare = new string[] { "110,110", "110,70", "70,70", "70,110" };
 
             WriteArrayAsync(CoordinatesListSquare, "Made a square for you!");
 
@@ -104,7 +104,8 @@ namespace LaserTurret
             if (port.IsOpen && CoordinateList.Length > 0)
             {
                 int CoordinateAmount = 0;
-                LaserProgress.Step = 100 / CoordinateList.Length;
+                LaserProgress.Maximum = CoordinateList.Length;
+                LaserProgress.Step = 1;
                 LaserProgress.PerformStep();
                 foreach (String Coordinates in CoordinateList)
                 {
@@ -193,13 +194,13 @@ namespace LaserTurret
 
         public void Addtoarray(MouseEventArgs e)
         {
-    
-                int X = e.Location.X / (drawpanel.Size.Width / 40);
-                int Y = e.Location.Y / (drawpanel.Size.Height / 40);
-                
-                drawingarray.Add(String.Format("{0},{1}",
+
+            int X = 40 - e.Location.X / (drawpanel.Size.Width / 40);
+            int Y = 40 - e.Location.Y / (drawpanel.Size.Height / 40);
+
+            drawingarray.Add(String.Format("{0},{1}",
                 (X + 70),
-                (Y + 70)));
+                (Y + 80)));
             
 
         }
