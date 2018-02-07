@@ -99,7 +99,6 @@
             this.progress_label.Size = new System.Drawing.Size(51, 13);
             this.progress_label.TabIndex = 5;
             this.progress_label.Text = "Progress:";
-            this.progress_label.Click += new System.EventHandler(this.label2_Click);
             // 
             // drawpanel
             // 
@@ -139,7 +138,6 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 9;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -149,7 +147,6 @@
             this.label2.Size = new System.Drawing.Size(88, 13);
             this.label2.TabIndex = 10;
             this.label2.Text = "Last coordinates:";
-            this.label2.Click += new System.EventHandler(this.label2_Click_1);
             // 
             // LaserBoi
             // 
