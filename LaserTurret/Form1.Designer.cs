@@ -42,6 +42,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.repeatbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // resetposition
@@ -113,7 +114,7 @@
             // 
             // cleardraw
             // 
-            this.cleardraw.Location = new System.Drawing.Point(430, 262);
+            this.cleardraw.Location = new System.Drawing.Point(430, 285);
             this.cleardraw.Name = "cleardraw";
             this.cleardraw.Size = new System.Drawing.Size(106, 64);
             this.cleardraw.TabIndex = 7;
@@ -142,11 +143,22 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(430, 344);
+            this.label2.Location = new System.Drawing.Point(287, 341);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(88, 13);
             this.label2.TabIndex = 10;
             this.label2.Text = "Last coordinates:";
+            // 
+            // repeatbox
+            // 
+            this.repeatbox.AutoSize = true;
+            this.repeatbox.Location = new System.Drawing.Point(430, 262);
+            this.repeatbox.Name = "repeatbox";
+            this.repeatbox.Size = new System.Drawing.Size(61, 17);
+            this.repeatbox.TabIndex = 11;
+            this.repeatbox.Text = "Repeat";
+            this.repeatbox.UseVisualStyleBackColor = true;
+            this.repeatbox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // LaserBoi
             // 
@@ -154,6 +166,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(543, 386);
+            this.Controls.Add(this.repeatbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
@@ -188,6 +201,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox repeatbox;
     }
 }
 

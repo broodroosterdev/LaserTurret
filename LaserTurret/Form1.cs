@@ -22,6 +22,7 @@ namespace LaserTurret
         public Pen p = new Pen(Color.Black, 5);
         public Graphics g;
         List<String> drawingarray = new List<String>();
+        public int repeat = new int();
         
         //Wordt gedraaid wanneer het programma opstart
         public LaserBoi()
@@ -52,14 +53,14 @@ namespace LaserTurret
             //Maakt een nieuwe lijst aan met coordinaten
             string[] CoordinatesListSquare = new string[] { "110,110", "110,70", "70,70", "70,110" };
             //Stuurt de lijst met coordinaten naar de functie die de coordinaten naar de arduino stuurt
-            WriteArrayAsync(CoordinatesListSquare, "Made a square for you!");
+            WriteArrayAsync(CoordinatesListSquare,500,"Made a square for you!");
 
         }
         //Wordt gedraaid wanneer er op de "Make Draw" knop wordt geklikt
         private void makedraw_Click(object sender, EventArgs e)
         {
             //Stuurt de lijst met coordinaten van de tekening naar de functie die de coordinaten naar de arduino stuurt
-            WriteArrayAsync(drawingarray.ToArray(), "Made the drawing for you!", 250);
+            WriteArrayAsync(drawingarray.ToArray(),20);
         }
         //Wordt gedraaid wanneer er op de "Clear Draw" knop wordt geklikt
         private void cleardraw_Click(object sender, EventArgs e)
@@ -119,7 +120,7 @@ namespace LaserTurret
             
         }
         //Functie die de lijsten met coordinaten om de beurt naar de arduino stuurt met een timeout er tussen zodat de arduino het aankan
-        public async void WriteArrayAsync (string[] CoordinateList,String Succes = "null", int Timeout = 500)
+        public async void WriteArrayAsync (string[] CoordinateList, int Timeout = 500,String Succes = "null")
         {
             //Kijkt of de poort open is en of de lijst niet leeg is
             if (port.IsOpen && CoordinateList.Length > 0)
@@ -146,12 +147,21 @@ namespace LaserTurret
                     //Zet een stap voor het laadbalkje
                     LaserProgress.PerformStep();
                     //Kijkt of de coordinaat het laatste in het lijstje is en of er een eind bericht is ingesteld
-                    if(CoordinateAmount == CoordinateList.Length && Succes != "null")
+                    if(CoordinateAmount == CoordinateList.Length)
                     {
-                        //Laat een pop-up zien met het ingestelde bericht
-                        MessageBox.Show(Succes);
                         //Zet het laadbalkje weer terug
                         LaserProgress.Value = 0;
+                        if (repeat == 1)
+                        {
+                            WriteArrayAsync(CoordinateList, Timeout);
+                        }
+                        if (Succes != "null")
+                        {
+                            //Laat een pop-up zien met het ingestelde bericht
+                            MessageBox.Show(Succes);
+                        }
+                        
+                        
                     }
                     //Wacht de ingestelde tijd voor dat hij weer opnieuw begint
                     await Task.Delay(Timeout);
@@ -233,10 +243,10 @@ namespace LaserTurret
             //Zet de "current_drawing" locatie naar de locatie van de muis
             current_drawing = e.Location;
             //Zet de minimale afwijking voor het sturen naar de locatie naar het gekozen getal
-            int offset = 20;
+            int offset = 5;
             //Kijkt of er een positieve of negatieve afwijking is op beide assen
-            if ((old_drawing.X - current_drawing.X) + (old_drawing.Y - current_drawing.Y) > -offset 
-                    || (old_drawing.X - current_drawing.X) + (old_drawing.Y - current_drawing.Y) > offset 
+            if ((old_drawing.X - current_drawing.X) + (old_drawing.Y - current_drawing.Y) > offset
+                    || (old_drawing.X - current_drawing.X) + (old_drawing.Y - current_drawing.Y) < -offset
                     || old_drawing.X - current_drawing.X > offset 
                     || old_drawing.Y - current_drawing.Y > offset 
                     || old_drawing.Y - current_drawing.Y < -offset 
@@ -254,15 +264,26 @@ namespace LaserTurret
         public void Addtoarray(MouseEventArgs e)
         {
             //Rekent de X coordinaat van het paneel om tot die van de arduino
-            int X = 40 - e.Location.X / (drawpanel.Size.Width / 40);
+            int X = 50 - e.Location.X / (drawpanel.Size.Width / 50);
             //Rekent de Y coordinaat van het paneel om tot die van de arduino
             int Y = 40 - e.Location.Y / (drawpanel.Size.Height / 40);
             //Voegt het omgevormde coordinaat toe aan het lijstje
             drawingarray.Add(String.Format("{0},{1}",
-                (X + 70),
+                (X + 65),
                 (Y + 80)));
             
 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (repeatbox.Checked)
+            {
+                repeat = 1;
+            } else
+            {
+                repeat = 0;
+            }
         }
     }
 }

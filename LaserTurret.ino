@@ -1,9 +1,15 @@
 #include<Servo.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define OLED_Address 0x3C
+Adafruit_SSD1306 oled(1);
 
 Servo serX;
 Servo serY;
 
 String serialData;
+String coordinates = "TEST";
 
 void setup() {
 
@@ -11,14 +17,20 @@ void setup() {
   serY.attach(10);
   Serial.begin(9600);
   Serial.setTimeout(10);
+  oled.begin(SSD1306_SWITCHCAPVCC, OLED_Address);
 }
 
 void loop() {
-  //nothing
+  oled.clearDisplay();
+  oled.setTextColor(WHITE);
+  oled.setCursor(0,0);
+  oled.println(coordinates);
+  oled.display();
 }
 
 void serialEvent() {
   serialData = Serial.readString();
+  coordinates = serialData;
   serX.write(parseDataX(serialData));
   serY.write(parseDataY(serialData));
 }
