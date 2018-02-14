@@ -235,7 +235,12 @@ namespace LaserTurret
             //Zet de minimale afwijking voor het sturen naar de locatie naar het gekozen getal
             int offset = 20;
             //Kijkt of er een positieve of negatieve afwijking is op beide assen
-            if (old_drawing.X - current_drawing.X > offset || old_drawing.Y - current_drawing.Y > offset || old_drawing.Y - current_drawing.Y < -offset || old_drawing.X - current_drawing.X < -offset)
+            if (    (old_drawing.X - current_drawing.X) + (old_drawing.Y - current_drawing.Y) > -offset 
+                    || (old_drawing.X - current_drawing.X) + (old_drawing.Y - current_drawing.Y) > offset 
+                    || old_drawing.X - current_drawing.X > offset 
+                    || old_drawing.Y - current_drawing.Y > offset 
+                    || old_drawing.Y - current_drawing.Y < -offset 
+                    || old_drawing.X - current_drawing.X < -offset)
             {
                 //Zet de "old_drawing" locatie naar de "current_drawing" locatie zodat er weer opnieuw een afwijking kan worden gemeten
                 old_drawing = current_drawing;
